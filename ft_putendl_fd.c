@@ -1,41 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/25 13:29:08 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/20 16:36:03 by jbuan            ###   ########.fr       */
+/*   Created: 2021/04/13 12:18:44 by jbuan             #+#    #+#             */
+/*   Updated: 2021/04/13 12:26:05 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
+#include <unistd.h>
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void	ft_putchar_fd(char c, int fd)
 {
-	size_t 	i;
-	size_t 	j;
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
 
 	i = 0;
-	j = 0;
-	while (src[j])
-		j++;
-	while (src[i] && i + 1 < dstsize)
+	while (s[i])
 	{
-		dst[i] = src[i];
-		i++;	
+		ft_putchar_fd(s[i], fd);
+		i++;
 	}
-	if (dstsize > 0)	
-		dst[i] = '\0';
-	printf("%s\n", dst);
-	return (j);
+	ft_putchar_fd('\n', fd);
 }
 
 int	main()
 {
-	char a[] = "boubi";
-	char b[] = "journal";
-	printf("%zu\n", ft_strlcpy(a, b, 8));
+	int fd;
+	char *s;
+
+	fd = 2;
+	s = "gambette";
+	ft_putstr_fd(s, fd);
+	return (0);
 }

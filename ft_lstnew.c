@@ -1,43 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/27 10:16:24 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/20 16:16:28 by jbuan            ###   ########.fr       */
+/*   Created: 2021/04/21 11:40:51 by jbuan             #+#    #+#             */
+/*   Updated: 2021/04/23 14:12:09 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include <stdio.h>
 #include "libft.h"
+#include "bonus.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+t_list	*ft_lstnew(void *content)
 {
-	size_t	i;
-	size_t	j;
+	t_list	*manipuleList;
 
-	i = 0;
-	j = 0;
-	while (dst[i] && i < dstsize)
-		i++;
-	printf("%zu\n", i);
-	while (src[j] && i + j + 1 < dstsize)
+	manipuleList = malloc(sizeof(t_list));
+	if (manipuleList)
 	{
-		dst[i + j] = src[j];
-		j++;
+		manipuleList->content = content;
+		manipuleList->next = NULL;
 	}
-	if (i != dstsize)
-		dst[i + j] = '\0';
-	printf("%s\n", dst);
-	return (i + ft_strlen(src));	
+	return (manipuleList);
+}
+
+void	print_list(t_list *list)
+{
+	while (list)
+	{
+		ft_putstr_fd(list->content, 2);
+		list = list->next;
+	}
 }
 
 int	main()
 {
-	char b[] = "AAAAAAAAA";
-	char a[30] = "CCCCC";
-	printf("%zu\n", ft_strlcat(a, b, -1));
+	void	*content;
+	char	*s;
+	t_list	*list;
+
+	s = "Chapeau";
+	content = s;
+	list = ft_lstnew(content);
+	print_list(list);
 }

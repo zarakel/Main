@@ -1,38 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/27 18:49:00 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/21 14:33:17 by jbuan            ###   ########.fr       */
+/*   Created: 2021/04/07 10:02:31 by jbuan             #+#    #+#             */
+/*   Updated: 2021/04/13 18:46:14 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-void	*ft_calloc(size_t count, size_t size)
+/*char	chose(unsigned int i, char c)
 {
-	char	*ptr;
-	size_t	i;
+	if (i >= 0)
+		c += 1;
+	return (c);
+}*/
 
-	ptr = (char *)malloc(sizeof(ptr) * (count * size));
-	if (!ptr)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char	*a;
+	int		i;
+	int		j;			
+
+	i = ft_strlen(s);
+	a = (char *)malloc(sizeof(char) * i + 1);
+	if (!a)
 		return (NULL);
-	i = 0;
-	while (i < (count * size))
+	j = 0;
+	while (a[j])
 	{
-		ptr[i] = '0';
-		i++;
+		a[j] = f(j, a[j]);
+		j++;
 	}
-	return (ptr);
+	a[j] = '\0';
+	return (a);
 }
 
 int	main()
 {
-	size_t	c = 5;
-	size_t	s = 2;
-	printf("%s", ft_calloc(c, s));
+	char *s;
+
+	s = "1234";
+	char (*f)(unsigned int, char);
+	f = &chose;
+	printf("%s\n", ft_strmapi(s, (*f)));
 }

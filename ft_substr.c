@@ -6,7 +6,7 @@
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 11:07:28 by jbuan             #+#    #+#             */
-/*   Updated: 2021/03/30 15:42:32 by jbuan            ###   ########.fr       */
+/*   Updated: 2021/04/20 18:55:36 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,36 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char *a;
-	size_t i;
-	unsigned int z;
-		
-	z = len + start;
-	a = (char *)malloc(sizeof(char) * (len));
+	char	*a;
+	size_t	i;
+
+	i = -1;
+	if (!s)
+		return (0);
+	if (len > ft_strlen(s))
+		len = ft_strlen(s);
+	if (ft_strlen(s) < start)
+	{
+		a = (char *)malloc(sizeof(*s) * 1);
+		if (!a)
+			return (NULL);
+		a[0] = '\0';
+		return (a);
+	}
+	a = (char *)malloc(sizeof(*s) * (len + 1));
 	if (!a)
 		return (NULL);
-	i = 0;
-	while (start < z)
-	{
-		a[i] = (char)s[start];
-		i++;
-		start++;
-	}
+	while (++i < len)
+		a[i] = s[i + start];
+	a[i] = '\0';
 	return (a);
-}
+}	
 
 int main()
 {
 	char *s = "Bonjour";
-	unsigned int st = 2;
-	size_t len = 10;
+	unsigned int st = 1;
+	size_t len = 1;
 
 	printf("%s\n", ft_substr(s, st, len));
 }

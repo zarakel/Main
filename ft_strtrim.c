@@ -6,7 +6,7 @@
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 08:34:23 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/01 10:56:24 by jbuan            ###   ########.fr       */
+/*   Updated: 2021/04/16 12:23:49 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int	stl(char *sg)
+static int	egal(char const *set, char c)
 {
-	int	i;
-
-	i = 0;
-	while (sg[i])
-		i++;
-	return (i);
-}
-
-void	*ft_malloc(char const *s1, char const *set)
-{
-	char	*a;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	i = stl((char *)s1);
-	j = stl((char *)set);
-	a = (char *)malloc(sizeof(char) * (i - j));
-	if (!a)
-		return (NULL);
-	return (a);
+	while (*set)
+	{
+		if (*set == c)
+			return (1);
+		set++;
+	}
+	return (0);
 }
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*a;
-	size_t	b;
-	size_t	c;
-	size_t	i;
+	int		i;
+	int		j;
+	int		k;
 
-	a = ft_malloc(s1, set);
-	b = 0;
-	c = 0;
+	if (!s1 || !set)
+		return (0);
 	i = 0;
-	while (s1[b])
-	{
-		if (set[c] == s1[b])
-			c++;
-		else if (set[c] != s1[b])
-		{
-			a[i] = s1[b];
-			i++;
-		}
-		b++;
-	}
+	while (s1[i] && egal(set, s1[i]))
+		i++;
+	j = ft_strlen(s1);
+	while (j > i && egal(set, s1[j - 1]))
+		j--;
+	a = malloc(j - i + 1);
+	if (!a)
+		return (0);
+	k = 0;
+	while (i < j)
+		a[k++] = s1[i++];
+	a[k] = 0;
 	return (a);
 }
 
 int	main()
 {
-	char s1[] = "Endive";
-	char s2[] = "Eie";
+	char s1[] = "";
+	char s2[] = "";
 	printf("%s\n", ft_strtrim(s1, s2));
 }

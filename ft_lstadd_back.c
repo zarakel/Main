@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:40:51 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/26 22:03:40 by jbuan            ###   ########.fr       */
+/*   Updated: 2021/04/27 15:16:09 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ t_list	*ft_addlink(t_list *list, void *content)
 	{
 		manipuleList->content = content;
 		manipuleList->next = list;
+	}
+	return (manipuleList);
+}
+
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*manipuleList;
+
+	manipuleList = malloc(sizeof(t_list));
+	if (manipuleList)
+	{
+		manipuleList->content = content;
+		manipuleList->next = NULL;
 	}
 	return (manipuleList);
 }
@@ -55,6 +68,27 @@ int		ft_lstsize(t_list *lst)
 	return (i);
 }
 
+t_list	*ft_lstlast(t_list *lst)
+{
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
+
+void	ft_lstadd_back(t_list **alst, t_list *new)
+{
+	t_list	*last;
+
+	if (*alst)
+	{
+		last = ft_lstlast(*alst);
+		last->next = new;
+	}
+	else 
+		*alst = new;
+	return;
+}
+
 int	main()
 {
 	void	*content;
@@ -62,6 +96,7 @@ int	main()
 	char	*st;
 	char	*str;
 	char	*stri;
+	char	*strin;
 	t_list	*list;
 	t_list	*alst;
 	t_list	*lst;
@@ -71,6 +106,7 @@ int	main()
 	st = "Chameau\n";
 	str = "Challumeau\n";
 	stri = "Chapati\n";
+	strin = "Chamarre\n";
 	content = s;
 	list = ft_addlink(list, content);
 	lst = list;
@@ -79,11 +115,19 @@ int	main()
 	content = str;
 	list = ft_addlink(list, content);
 	alst = list;
-	print_list(list);
-	content  = stri;
+/*	print_list(list);
+	printf("\n");
+	print_list(ft_lstlast(lst));
+	printf("\n");
+	content = stri;
 	printf("taille de notre chaine %d", ft_lstsize(list));
 	printf("\n\nmaillon 1, 2, 3 retourne\n\n");
 	list = ft_addlink(list, content);
 	ft_lstadd_front(&alst, list);
+	print_list(list);
+*/	printf("\n\n");
+	content = strin;
+	list = ft_addlink(list, content);
+	ft_lstadd_back(&alst, list);
 	print_list(list);
 }

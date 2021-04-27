@@ -6,7 +6,7 @@
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 11:41:23 by jbuan             #+#    #+#             */
-/*   Updated: 2021/03/24 12:33:13 by jbuan            ###   ########.fr       */
+/*   Updated: 2021/04/27 09:35:37 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void *ft_memcpy(void *dst, const void *src, size_t n)
 	char *d;
 	unsigned int i;
 
-
+	if (!dst && !src)
+		return (0);
 	d = dst;
 	i = 0;
 	while (i < n)

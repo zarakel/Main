@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:40:51 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/26 22:03:40 by jbuan            ###   ########.fr       */
+/*   Updated: 2021/04/26 22:06:41 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ int		ft_lstsize(t_list *lst)
 	return (i);
 }
 
+t_list	*ft_lstlast(t_list *lst)
+{
+	while (lst->next != NULL)
+		lst = lst->next;
+	return (lst);
+}
+
 int	main()
 {
 	void	*content;
@@ -80,6 +87,9 @@ int	main()
 	list = ft_addlink(list, content);
 	alst = list;
 	print_list(list);
+	printf("\n");
+	print_list(ft_lstlast(lst));
+	printf("\n");
 	content  = stri;
 	printf("taille de notre chaine %d", ft_lstsize(list));
 	printf("\n\nmaillon 1, 2, 3 retourne\n\n");

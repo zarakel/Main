@@ -6,7 +6,7 @@
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 09:01:19 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/26 17:39:21 by jbuan            ###   ########.fr       */
+/*   Updated: 2021/04/26 22:19:28 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	print_list(t_list *list);
 t_list	*ft_addlink(t_list *list, void *content);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
+void	ft_lstadd_back(t_list **alst, t_list *new);
 
 #endif

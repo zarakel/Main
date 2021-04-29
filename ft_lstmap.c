@@ -1,44 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/23 09:38:03 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/28 14:58:12 by jbuan            ###   ########.fr       */
+/*   Created: 2021/04/29 14:42:35 by jbuan             #+#    #+#             */
+/*   Updated: 2021/04/29 16:43:05 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> 
-#include <string.h>
+#include "bonus.h"
+#include "libft.h"
 #include <stdlib.h>
 
-void	*ft_memset(void *pointer, int value, size_t count)
+t_list	*ft_lstmap(t_list *lst, void *(*f) (void *), void (*del) (void *))
 {
-	char *ptr;
-	unsigned int i;
+	t_list	*new1;
+	t_list 	*new2;
 
-	ptr = pointer;
-	i = 0;
-	while (i < count)
+	new1 = NULL;
+	if (lst)
 	{
-		ptr[i] = value;
-		i++;
+		while (lst)
+		{
+			new2 = ft_lstnew(f(lst->content));
+			if (!new2)
+			{
+				ft_lstclear(&new1, del);
+				return (NULL);
+			}
+			ft_lstadd_back(&new1, new2);
+			lst = lst->next;
+		}
+		return (new1);
 	}
-	
-	return (pointer);
-}
-
-int	main()
-{
-	char *ptr;
-	size_t count;
-	size_t size;
-	count = 2;
-	size = 2;
-	
-	ptr = (char *)malloc(sizeof(char) * (size * count));
-	ptr = ft_memset(ptr,'0', (size * count));
-	printf("%s", ptr);
+	else
+		return (NULL);
 }

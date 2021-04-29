@@ -6,7 +6,7 @@
 /*   By: jbuan <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:40:51 by jbuan             #+#    #+#             */
-/*   Updated: 2021/04/27 15:16:09 by jbuan            ###   ########.fr       */
+/*   Updated: 2021/04/29 13:12:06 by jbuan            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,21 @@ t_list	*ft_lstnew(void *content)
 	return (manipuleList);
 }
 
+t_list	*ft_lstctn(t_list *list, void *content)
+{
+	t_list *x;
+
+	x = list;
+	x = malloc(sizeof(t_list));
+	if (x)
+		x->content = content;
+		x->next = NULL;
+	return (x);
+}
+
 void	print_list(t_list *list)
 {
-	while (list)
+	while (list->next)
 	{
 		ft_putstr_fd(list->content, 2);
 		list = list->next;
@@ -101,14 +113,13 @@ int	main()
 	t_list	*alst;
 	t_list	*lst;
 
-	list = NULL;
 	s = "Chapeau\n";
 	st = "Chameau\n";
 	str = "Challumeau\n";
 	stri = "Chapati\n";
 	strin = "Chamarre\n";
 	content = s;
-	list = ft_addlink(list, content);
+	list = ft_lstnew(content);
 	lst = list;
 	content = st;
 	list = ft_addlink(list, content);
@@ -127,7 +138,7 @@ int	main()
 	print_list(list);
 */	printf("\n\n");
 	content = strin;
-	list = ft_addlink(list, content);
+	list = ft_lstctn(list, content);
 	ft_lstadd_back(&alst, list);
 	print_list(list);
 }
